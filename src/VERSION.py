@@ -1,4 +1,4 @@
 # Python Optimal Spectrum Extraction Version:
 POSX_VER = 0  # Major version
 POSX_MIN = 4  # Minor version
-POSX_REV = 2  # Revision
+POSX_REV = 3  # Revision
