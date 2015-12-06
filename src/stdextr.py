@@ -65,13 +65,16 @@ def stdextr(data, x1, x2, variance=None, mask=None, interp=False):
 
   # Interpolate over bad pixels:
   if interp:
+    stdspec = np.zeros(nwave)
     for i in np.arange(nwave):
       bad  = np.where(mask[i, x1:x2] == 0)
       good = np.where(mask[i, x1:x2] == 1)
-      datav = data[i, x1:x2]
+      datav = np.copy(data[i, x1:x2])
       if len(bad) != 0:
         interpol = si.interp1d(datav[good], good[0], kind="linear")
         datav[bad] = interpol(bad[0])
+      stdspec[i] = np.sum(datav)
+    return stdspec, np.zeros(nwave)
 
   # Standard extraction:
   stdspec = np.sum((data     * mask)[:, x1:x2], axis=1)
